@@ -20,13 +20,14 @@ import javax.imageio.ImageIO;
 
 public final class Account
 implements Comparable<Account>{
-    public static final Account DEFAULT = new Account("Default", new Color(38, 140, 64));
+    public static final Account DEFAULT = new Account("Default", "default", new Color(38, 140, 64));
 
-    public final String name;
+    public final String name, email;
     public final Color color;
 
-    public Account(String name, Color color){
+    public Account(String name, String email, Color color){
         this.name = name;
+        this.email = email;
         this.color = color;
     }
 

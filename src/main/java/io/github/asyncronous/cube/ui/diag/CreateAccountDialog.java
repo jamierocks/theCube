@@ -33,6 +33,7 @@ extends JDialog{
     public CreateAccountDialog(){
         super(Cube.cubeFrame, "Create Account", ModalityType.APPLICATION_MODAL);
         this.setUndecorated(true);
+        this.setLocationRelativeTo(Cube.cubeFrame);
         this.getContentPane().setBackground(UIUtils.CUBE);
         this.getContentPane().setLayout(new GridBagLayout());
 

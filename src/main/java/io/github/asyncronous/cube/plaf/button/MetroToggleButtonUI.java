@@ -43,11 +43,7 @@ extends BasicToggleButtonUI{
         AbstractButton b = (AbstractButton) comp;
         Graphics2D g2 = (Graphics2D) g;
 
-        if(b.getModel().isRollover()){
-            g2.setColor(Accounts.current().color.brighter());
-            g2.fillRect(0, 0, b.getWidth(), b.getHeight());
-            g2.setColor(Color.white);
-        } else if(b.getModel().isSelected()){
+        if(b.getModel().isRollover() || b.getModel().isSelected()){
             g2.setColor(Accounts.current().color.brighter());
             g2.fillRect(0, 0, b.getWidth(), b.getHeight());
             g2.setColor(Color.white);

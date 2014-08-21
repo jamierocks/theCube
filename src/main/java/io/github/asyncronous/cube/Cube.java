@@ -2,7 +2,6 @@ package io.github.asyncronous.cube;
 
 import io.github.asyncronous.cube.plaf.CubeLookAndFeel;
 import io.github.asyncronous.cube.ui.CubeFrame;
-import io.github.asyncronous.cube.ui.diag.CreateAccountDialog;
 
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -28,14 +27,5 @@ public final class Cube{
             }
         });
         Settings.EVENT_BUS.register(cubeFrame);
-
-        if(Accounts.all().size() == 0){
-            SwingUtilities.invokeLater(new Runnable(){
-                @Override
-                public void run(){
-                    new CreateAccountDialog().setVisible(true);
-                }
-            });
-        }
     }
 }

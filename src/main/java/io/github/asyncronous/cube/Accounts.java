@@ -3,8 +3,6 @@ package io.github.asyncronous.cube;
 import io.github.asyncronous.cube.event.AccountRegisteredEvent;
 import io.github.asyncronous.cube.obj.Account;
 
-import com.google.common.collect.ImmutableSet;
-
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -60,15 +58,12 @@ public final class Accounts{
                         e.printStackTrace(System.err);
                     }
                 }
-                loaded.clear();
                 try(DirectoryStream<Path> accs = Files.newDirectoryStream(Settings.ACCOUNTS)){
                     for(Path path : accs){
                         if(!Files.isDirectory(path)){
                             if(path.getFileName().toString().endsWith(".json")){
                                 try(FileInputStream fis = new FileInputStream(path.toFile())){
                                     Account acc = Settings.GSON.fromJson(new InputStreamReader(fis), Account.class);
-                                    System.out.println("Loaded Account " + acc.name);
-                                    Settings.EVENT_BUS.post(new AccountRegisteredEvent(acc));
                                     loaded.add(acc);
                                 }
                             }
@@ -90,7 +85,15 @@ public final class Accounts{
         current = acc;
     }
 
+    public static void setCurrent(String user){
+        for(Account acc : loaded){
+            if(acc.name.equalsIgnoreCase(user)){
+                current = acc;
+            }
+        }
+    }
+
     public static Set<Account> all(){
-        return ImmutableSet.copyOf(loaded);
+        return loaded;
     }
 }

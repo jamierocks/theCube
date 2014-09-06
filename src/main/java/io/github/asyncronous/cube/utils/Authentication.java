@@ -5,6 +5,8 @@ import com.mojang.authlib.exceptions.AuthenticationException;
 import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
 import com.mojang.authlib.yggdrasil.YggdrasilUserAuthentication;
 
+import io.github.asyncronous.cube.Settings;
+
 import java.net.Proxy;
 
 public final class Authentication{
@@ -20,6 +22,7 @@ public final class Authentication{
         if(user_auth.canLogIn()){
             try{
                 user_auth.logIn();
+                Settings.properties.setProperty("lastAccount", username);
                 return true;
             } catch(AuthenticationException e){
                 e.printStackTrace(System.err);

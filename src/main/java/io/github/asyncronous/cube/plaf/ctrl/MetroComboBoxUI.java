@@ -3,7 +3,6 @@ package io.github.asyncronous.cube.plaf.ctrl;
 import io.github.asyncronous.cube.UIUtils;
 import io.github.asyncronous.cube.plaf.MetroArrowButton;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -25,7 +24,7 @@ extends MetalComboBoxUI{
         super.installUI(comp);
         this.comboBox.setBorder(BorderFactory.createEmptyBorder());
         this.comboBox.setPreferredSize(new Dimension(125, 50));
-        this.listBox.setBackground(Color.black);
+        this.listBox.setBackground(UIUtils.CUBE);
     }
 
     @Override

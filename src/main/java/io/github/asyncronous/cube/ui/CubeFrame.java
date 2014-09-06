@@ -12,6 +12,7 @@ import io.github.asyncronous.cube.ui.comp.GitHubButton;
 import io.github.asyncronous.cube.ui.comp.ToggleButtonGroup;
 import io.github.asyncronous.cube.ui.comp.TwitterButton;
 import io.github.asyncronous.cube.ui.frame.DraggableFrame;
+import io.github.asyncronous.cube.ui.panel.CenterPanel;
 import io.github.asyncronous.cube.ui.panel.LeftPanel;
 
 import com.google.common.eventbus.Subscribe;
@@ -22,6 +23,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import javax.swing.Box;
@@ -35,12 +38,14 @@ public final class CubeFrame
 extends DraggableFrame{
     private final JPanel topPanel = new JPanel();
     private final JPanel leftPanel = new LeftPanel();
+    private final CenterPanel centerPanel = new CenterPanel();
 
     private final ToggleButtonGroup group = new ToggleButtonGroup();
     private final JToggleButton modpacksButton = new JToggleButton("Mod Packs");
     private final JToggleButton dashboardButton = new JToggleButton("Dashboard", true);
     private final JToggleButton instancesButton = new JToggleButton("Instances");
     private final JToggleButton settingsButton = new JToggleButton("Settings");
+    private final JToggleButton accountsButton = new JToggleButton("Accounts");
     private final JComboBox<Account> accountBox = new AccountComboBox();
 
     private final GridBagConstraints gbc = new GridBagConstraints();
@@ -60,6 +65,7 @@ extends DraggableFrame{
         this.group.add(this.dashboardButton);
         this.group.add(this.instancesButton);
         this.group.add(this.settingsButton);
+        this.group.add(this.accountsButton);
 
         setupLeftPanel();
         this.addItemListeners();
@@ -72,6 +78,46 @@ extends DraggableFrame{
         this.getContentPane().setLayout(new BorderLayout());
         this.getContentPane().add(this.leftPanel, BorderLayout.WEST);
         this.getContentPane().add(this.topPanel, BorderLayout.NORTH);
+        this.getContentPane().add(this.centerPanel, BorderLayout.CENTER);
+
+        this.addActionListeners();
+    }
+
+    public Dimension getButtonSize(){
+        return this.dashboardButton.getSize();
+    }
+
+    private void addActionListeners(){
+        this.dashboardButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                centerPanel.show("dashboard");
+            }
+        });
+        this.modpacksButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                centerPanel.show("packs");
+            }
+        });
+        this.settingsButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                centerPanel.show("settings");
+            }
+        });
+        this.instancesButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                centerPanel.show("instances");
+            }
+        });
+        this.accountsButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                centerPanel.show("accounts");
+            }
+        });
     }
 
     @Subscribe
@@ -101,6 +147,8 @@ extends DraggableFrame{
         this.leftPanel.add(this.dashboardButton, this.gbc);
         this.gbc.gridy++;
         this.leftPanel.add(this.instancesButton, this.gbc);
+        this.gbc.gridy++;
+        this.leftPanel.add(this.accountsButton, this.gbc);
         this.gbc.gridy++;
         this.leftPanel.add(this.settingsButton, this.gbc);
         this.gbc.gridy++;

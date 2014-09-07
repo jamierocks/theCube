@@ -2,21 +2,15 @@ package io.github.asyncronous.cube.ui.comp
 
 import java.awt.Color
 import javax.swing.JTextPane
-import javax.swing.text.{StyleConstants, SimpleAttributeSet}
+import javax.swing.text.SimpleAttributeSet
 
 object Console
 extends JTextPane{
   private val attrs: SimpleAttributeSet = new SimpleAttributeSet();
 
   this.setEditable(false);
-
-  def setColor(c: Color): Unit ={
-    StyleConstants.setForeground(this.attrs, c);
-  }
-
-  def setBold(b: Boolean): Unit ={
-    StyleConstants.setBold(this.attrs, b);
-  }
+  this.setBackground(Color.black);
+  this.setForeground(Color.white);
 
   override def getScrollableTracksViewportWidth(): Boolean= true
 

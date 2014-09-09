@@ -17,6 +17,7 @@ extends BasicToggleButtonUI{
     @Override
     public void installUI(JComponent comp){
         super.installUI(comp);
+        ((JToggleButton) comp).setFocusPainted(false);
     }
 
     @Override

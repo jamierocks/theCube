@@ -4,6 +4,7 @@ import io.github.asyncronous.cube.plaf.button.CubeToggleButtonUI;
 import io.github.asyncronous.cube.plaf.output.CubeSeparatorUI;
 
 import javax.swing.UIDefaults;
+import javax.swing.UIManager;
 import javax.swing.plaf.metal.MetalLookAndFeel;
 
 public final class CubeLookAndFeel
@@ -11,6 +12,14 @@ extends MetalLookAndFeel{
     public static final CubeLookAndFeel instance = new CubeLookAndFeel();
 
     private CubeLookAndFeel(){}
+
+    public static void install(){
+        try{
+            UIManager.setLookAndFeel(instance);
+        } catch(Exception e){
+            throw new RuntimeException(e);
+        }
+    }
 
     @Override
     public void initComponentDefaults(UIDefaults table){

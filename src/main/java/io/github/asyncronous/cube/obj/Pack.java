@@ -1,9 +1,11 @@
 package io.github.asyncronous.cube.obj;
 
-import io.github.asyncronous.cube.data.Gsons;
-
 import com.google.common.base.Objects;
 import com.google.gson.annotations.SerializedName;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public final class Pack{
     @SerializedName("PackName")
@@ -13,13 +15,13 @@ public final class Pack{
     @SerializedName("Version")
     public final String version;
     @SerializedName("Mods")
-    public final String mods;
+    public final Mod[] mods;
     @SerializedName("ImgUrl")
     public final String imgUrl;
     @SerializedName("Type")
     public final Type type;
 
-    public Pack(String packName, String packDescription, String version, String mods, String imgUrl, Type type){
+    private Pack(String packName, String packDescription, String version, Mod[] mods, String imgUrl, Type type){
         this.packName = packName;
         this.packDescription = packDescription;
         this.version = version;
@@ -28,39 +30,32 @@ public final class Pack{
         this.type = type;
     }
 
-    public Mod[] getMods(){
-        return Gsons.GSON.fromJson(this.mods, Mod[].class);
-    }
-
     public static enum Type{
         PUBLIC, PRIVATE
     }
 
-    public static final class Mod{
-        @SerializedName("Name")
-        public final String name;
-        @SerializedName("Description")
-        public final String description;
-        @SerializedName("Url")
-        public final String url;
-        @SerializedName("Md5")
-        public final String md5;
+    public void downloadMods(Path dir)
+    throws IOException{
+        Path mods = dir.resolve("mods");
+        if(!Files.exists(mods)){
+            Files.createDirectories(mods);
+        }
 
-        public Mod(String name, String description, String url, String md5){
-            this.name = name;
-            this.description = description;
-            this.url = url;
-            this.md5 = md5;
+        for(Mod mod : this.mods){
+            mod.download(mods);
         }
     }
 
     @Override
     public String toString(){
-        return Objects.toStringHelper(Pack.class.getName())
+        for(Mod mod : this.mods){
+            System.out.println(mod);
+        }
+
+        return Objects.toStringHelper(this.getClass())
                 .add("packName", this.packName)
                 .add("packDescription", this.packDescription)
                 .add("version", this.version)
-                .add("mods", this.mods)
                 .add("imgUrl", this.imgUrl)
                 .add("type", this.type).toString();
     }

@@ -31,7 +31,7 @@ import java.net.URL;
 public final class NetUtils{
     public static News[] getNews()
     throws IOException{
-        HttpURLConnection conn = (HttpURLConnection) new URL(Constants.SERVERS.getDefault().getURL() + "/News/GetFeed").openConnection();
+        HttpURLConnection conn = (HttpURLConnection) new URL(Constants.SERVERS.getCurrent().getURL() + "/News/GetFeed").openConnection();
 
         InputStream in;
         try{
@@ -47,7 +47,7 @@ public final class NetUtils{
 
     public static Pack[] getUserPacks(String user)
     throws IOException{
-        HttpURLConnection conn = (HttpURLConnection) new URL(Constants.SERVERS.getDefault().getURL() + "/Packs/GetUser/" + user).openConnection();
+        HttpURLConnection conn = (HttpURLConnection) new URL(Constants.SERVERS.getCurrent().getURL() + "/Packs/GetUser/" + user).openConnection();
         conn.connect();
 
         if(conn.getResponseCode() == 404){
@@ -68,7 +68,7 @@ public final class NetUtils{
 
     public static Pack[] getPublicPacks()
     throws IOException{
-        HttpURLConnection conn = (HttpURLConnection) new URL(Constants.SERVERS.getDefault().getURL() + "Packs/GetPublic").openConnection();
+        HttpURLConnection conn = (HttpURLConnection) new URL(Constants.SERVERS.getCurrent().getURL() + "Packs/GetPublic").openConnection();
         conn.connect();
 
         InputStream in;

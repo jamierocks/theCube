@@ -19,17 +19,35 @@ package io.github.asyncronous.cube.obj;
 
 public class ServerList {
     private Server[] serverList;
+    private Server defaultServer;
+    private Server currentServer;
 
     public ServerList(Server[] serverList){
         this.serverList = serverList;
+
+        for(Server server : serverList){
+            if(server.isDefaultSelected()){
+                defaultServer = server;
+            }
+        }
+        defaultServer = serverList[0];
     }
 
     public Server getDefault(){
+        return defaultServer;
+    }
+    public Server getCurrent(){
         for(Server server : serverList){
-            if(server.isDefaultSelected()){
+            if(server.isCurrentlySelected()){
                 return server;
             }
         }
         return serverList[0];
+    }
+    public void setCurrent(int id){
+        for(Server server : serverList){
+            server.setCurrentlySelected(false);
+        }
+        serverList[id].setCurrentlySelected(true);
     }
 }

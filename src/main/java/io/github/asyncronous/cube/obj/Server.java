@@ -21,11 +21,13 @@ public class Server{
     private String name;
     private String url;
     private boolean defaultSelected;
+    private boolean currentlySelected;
 
     public Server(String name, String url, boolean defaultSelected){
         this.name = name;
         this.url = url;
         this.defaultSelected = defaultSelected;
+        this.currentlySelected = false;
     }
 
     public String getName(){
@@ -36,5 +38,12 @@ public class Server{
     }
     public boolean isDefaultSelected(){
         return defaultSelected;
+    }
+    public boolean isCurrentlySelected(){
+        return currentlySelected;
+    }
+
+    public void setCurrentlySelected(boolean selected){
+        currentlySelected = selected;
     }
 }

@@ -74,16 +74,15 @@ public final class Account{
 
                 HttpURLConnection conn = (HttpURLConnection) new URL("http://s3.amazonaws.com/MinecraftSkins/" + this.name + ".png").openConnection();
                 try (InputStream in = conn.getInputStream();
-                     ReadableByteChannel rbc = Channels.newChannel(in);
-                     FileChannel channel = FileChannel.open(path, Resources.WRITE)) {
+                    ReadableByteChannel rbc = Channels.newChannel(in);
+                    FileChannel channel = FileChannel.open(path, Resources.WRITE)) {
                     channel.transferFrom(rbc, 0, Long.MAX_VALUE);
                 }
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
-        } else {
-            return this;
         }
+        return this;
     }
 
     public Image getHead(){

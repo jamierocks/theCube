@@ -64,28 +64,26 @@ public final class Account{
     }
 
     public Account updateSkin(){
-        try{
-            if(this.name.toLowerCase().equalsIgnoreCase("default")){
-                return this;
-            }
+        if(!this.name.toLowerCase().equalsIgnoreCase("default")) {
+            try {
+                if (!Files.exists(Pathing.SKINS)) {
+                    Files.createDirectories(Pathing.SKINS);
+                }
 
-            if(!Files.exists(Pathing.SKINS)){
-                Files.createDirectories(Pathing.SKINS);
-            }
+                Path path = Pathing.SKINS.resolve(this.name.toLowerCase() + ".png");
 
-            Path path = Pathing.SKINS.resolve(this.name.toLowerCase() + ".png");
-
-            HttpURLConnection conn = (HttpURLConnection) new URL("http://s3.amazonaws.com/MinecraftSkins/" + this.name + ".png").openConnection();
-            try(InputStream in = conn.getInputStream();
-                ReadableByteChannel rbc = Channels.newChannel(in);
-                FileChannel channel = FileChannel.open(path, Resources.WRITE)){
-                channel.transferFrom(rbc, 0, Long.MAX_VALUE);
+                HttpURLConnection conn = (HttpURLConnection) new URL("http://s3.amazonaws.com/MinecraftSkins/" + this.name + ".png").openConnection();
+                try (InputStream in = conn.getInputStream();
+                     ReadableByteChannel rbc = Channels.newChannel(in);
+                     FileChannel channel = FileChannel.open(path, Resources.WRITE)) {
+                    channel.transferFrom(rbc, 0, Long.MAX_VALUE);
+                }
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
-        } catch(Exception e){
-            throw new RuntimeException(e);
+        } else {
+            return this;
         }
-
-        return this;
     }
 
     public Image getHead(){

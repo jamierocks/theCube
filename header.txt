@@ -15,23 +15,3 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
-package io.github.asyncronous.cube.ui.comp;
-
-import javax.swing.ButtonGroup;
-import javax.swing.ButtonModel;
-
-public final class ToggleButtonGroup
-extends ButtonGroup{
-    @Override
-    public void setSelected(ButtonModel model, boolean selected){
-        if(selected){
-            super.setSelected(model, selected);
-        } else{
-            clearSelection();
-
-            if(this.getSelection() == null){
-                super.setSelected(model, true);
-            }
-        }
-    }
-}

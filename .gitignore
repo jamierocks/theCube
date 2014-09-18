@@ -5,6 +5,8 @@
 # Except These
 !/LICENSE.md
 !/README.md
+!/CONTRIBUTING.md
+!/header.txt
 !/.gitignore
 !/pom.xml
 !/src/

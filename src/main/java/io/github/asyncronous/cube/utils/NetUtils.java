@@ -40,9 +40,9 @@ public final class NetUtils{
             in = conn.getErrorStream();
         }
 
-        News[] packs = Gsons.GSON.fromJson(new InputStreamReader(in), News[].class);
+        News[] news = Gsons.GSON.fromJson(new InputStreamReader(in), News[].class);
         in.close();
-        return packs;
+        return news;
     }
 
     public static Pack[] getUserPacks(String user)
